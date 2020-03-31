@@ -1,0 +1,8 @@
+name: DiscordSync
+version: ${project.version}
+main: com.rocketmail.vaishnavanil.discordsync.Discordsync
+api-version: 1.13
+prefix: DiscordSync
+authors: [Vaishnav]
+description: Syncs minecraft chat between 1 or more Discord channels
+website: vshnv.github.io
