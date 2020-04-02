@@ -24,6 +24,13 @@ public final class Discordsync extends JavaPlugin {
         FileConfiguration config = getConfig();
         config.addDefault("channels", Arrays.asList(1234l,5678l));
         config.addDefault("token", "ADD_TOKEN_HERE");
+        config.addDefault("format.Discord2Minecraft", "[DISCORD]&c%user%: &f%message%");
+        config.addDefault("format.Discord2Discord", "[SYNC]%user%: %message%");
+        config.addDefault("format.Minecraft2Discord", "[MINECRAFT]%user%: %message%");
+        config.addDefault("format.alert.Dealth", "[DEATH] %message%");
+        config.addDefault("format.alert.Join", "[JOIN] %message%");
+        config.addDefault("format.alert.Quit", "[QUIT] %message%");
+        config.addDefault("format.ChannelDesc", "%playercount% Player Online. PlayerList: %onlineplayers%");
         getConfig().options().copyDefaults(true);
         saveConfig();
         getLogger().info("Initiating Discord Bot!");
@@ -39,6 +46,7 @@ public final class Discordsync extends JavaPlugin {
                 api.updateActivity("Connected!");
                 getLogger().info("Discord Bot Connected!");
                 System.out.println("You can invite the bot by using the following url: " + api.createBotInvite());
+                DiscordOutputHandler.getInstance().updateChannelDesc();
             });
 
         } catch (Exception e) {
@@ -46,11 +54,13 @@ public final class Discordsync extends JavaPlugin {
             e.printStackTrace();
         }
         getServer().getPluginManager().registerEvents(new MinecraftListener(),this);
+        getServer().getPluginCommand("dcast").setExecutor(new CommandDCast());
 
     }
 
     @Override
     public void onDisable() {
+        DiscordOutputHandler.getInstance().topicOffline();
         API.disconnect();
         API = null;
     }
