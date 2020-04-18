@@ -1,6 +1,6 @@
 name: DiscordSync
 version: ${project.version}
-main: com.rocketmail.vaishnavanil.discordsync.Discordsync
+main: com.rocketmail.vaishnavanil.discsync.DiscordSync
 api-version: 1.13
 prefix: DiscordSync
 authors: [Vaishnav]
